@@ -53,11 +53,11 @@ class ChatAdapter(private val dataSet: ArrayList<Message>) :
 
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (holder.javaClass==SenderViewHolder::class) {
-            (holder as SenderViewHolder).senderMsg.text=dataSet[position].message
-        } else {
-            (holder as ReceiverViewHolder).receiverMsg.text=dataSet[position].message
-        }
+//        if (holder.javaClass==SenderViewHolder::class) {
+//            (holder as SenderViewHolder).senderMsg.text=dataSet[position].message
+//        } else {
+            (holder as ReceiverViewHolder).receiverMsg.text= dataSet[position].message
+//        }
     }
 
     override fun getItemCount(): Int = dataSet.size
