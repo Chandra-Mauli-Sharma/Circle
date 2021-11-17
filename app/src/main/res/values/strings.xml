@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Circle</string>
+    <string name="LogOut">LogOut</string>
+    <string name="Settings">Settings</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Loading Joke…</string>
+    <string name="textview">TextView</string>
+    <string name="GroupChat">Group Chat</string>
+</resources>
