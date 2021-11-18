@@ -1,5 +1,6 @@
 package com.example.circle.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +11,7 @@ import com.example.circle.R
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
-class ChatAdapter(private val dataSet: ArrayList<Message>) :
+class ChatAdapter(val dataSet: ArrayList<Message>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
@@ -23,8 +24,8 @@ class ChatAdapter(private val dataSet: ArrayList<Message>) :
         var senderTime: TextView
 
         init {
-            senderMsg = view.findViewById(R.id.senderText)
-            senderTime = view.findViewById(R.id.senderTime)
+            senderMsg = itemView.findViewById(R.id.senderText)
+            senderTime = itemView.findViewById(R.id.senderTime)
         }
     }
 
@@ -33,31 +34,34 @@ class ChatAdapter(private val dataSet: ArrayList<Message>) :
         var receiverTime: TextView
 
         init {
-            receiverMsg = view.findViewById(R.id.receiverText)
-            receiverTime = view.findViewById(R.id.receiverTime)
+            receiverMsg = itemView.findViewById(R.id.receiverText)
+            receiverTime = itemView.findViewById(R.id.receiverTime)
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
-        when (viewType) {
-            SENDER_VIEW_TYPE -> SenderViewHolder(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return if (viewType == SENDER_VIEW_TYPE) {
+            SenderViewHolder(
                 LayoutInflater.from(parent.context)
                     .inflate(R.layout.sender_layout, parent, false)
             )
-
-            else -> ReceiverViewHolder(
+        } else {
+            ReceiverViewHolder(
                 LayoutInflater.from(parent.context)
                     .inflate(R.layout.receiver_layout, parent, false)
             )
         }
+    }
 
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-//        if (holder.javaClass==SenderViewHolder::class) {
-//            (holder as SenderViewHolder).senderMsg.text=dataSet[position].message
-//        } else {
-            (holder as ReceiverViewHolder).receiverMsg.text= dataSet[position].message
-//        }
+        if (holder.javaClass.kotlin==SenderViewHolder::class) {
+            (holder as SenderViewHolder).senderMsg.text = dataSet[position].message
+            (holder as SenderViewHolder).senderTime.text = dataSet[position].timeStamp.toString()
+        } else {
+            (holder as ReceiverViewHolder).receiverMsg.text = dataSet[position].message
+            (holder as ReceiverViewHolder).receiverTime.text = dataSet[position].timeStamp.toString()
+        }
     }
 
     override fun getItemCount(): Int = dataSet.size

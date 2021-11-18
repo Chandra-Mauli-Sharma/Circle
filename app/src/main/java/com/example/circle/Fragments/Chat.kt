@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.circle.adapter.UsersAdapter
@@ -55,8 +56,7 @@ class Chat : Fragment() {
                     layoutManager = LinearLayoutManager(context)
                     // set the custom adapter to the RecyclerView
                     adapter = UsersAdapter(list)
-                }
-
+                }.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
             }
 
 

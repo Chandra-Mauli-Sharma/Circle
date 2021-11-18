@@ -7,11 +7,13 @@ import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.circle.Models.Message
 import com.example.circle.adapter.ChatAdapter
 import com.google.android.gms.tasks.OnSuccessListener
+import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
@@ -20,6 +22,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import java.text.DateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -39,7 +42,7 @@ class GroupChatActivity : AppCompatActivity() {
         supportActionBar?.hide()
         auth = Firebase.auth
         senderId = auth.uid.toString()
-        database=Firebase.database
+        database = Firebase.database
 
         profilePicture = findViewById<ImageView>(R.id.profile_image2)
         profilePicture.setImageResource(R.drawable.ic_baseline_person_24)
@@ -81,18 +84,35 @@ class GroupChatActivity : AppCompatActivity() {
     fun sendMessage(v: View) {
         var editTextMessage = findViewById<EditText>(R.id.editTextMessage2)
 
+
+        val timestamp = Timestamp.now()
+        val milliseconds = timestamp.seconds * 1000 + timestamp.nanoseconds / 1000000
+        val sdf = DateFormat.getTimeInstance(DateFormat.SHORT)
+        val netDate = Date(milliseconds)
+        val date = sdf.format(netDate).toString()
+
         var model = Message(
             uid = senderId,
             message = editTextMessage.text.toString(),
-            timeStamp = Date().time
+            timeStamp = date
         )
         editTextMessage.setText("")
+
         database.reference.child("GroupChats")
             .push()
-            .setValue(model).addOnSuccessListener {
-                OnSuccessListener<Void> {
+            .setValue(
+                model
+            ) { databaseError, databaseReference ->
+                if (databaseError != null) {
+                    Toast.makeText(
+                        this,
+                        "Some error occured, try again",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else {
 
                 }
             }
+
     }
 }
