@@ -25,7 +25,7 @@
         android:layout_margin="10dp"
         android:layout_marginTop="10dp"
         android:inputType="textMultiLine"
-        android:minWidth="10dp"
+        android:minWidth="48dp"
         android:minHeight="48dp"
         android:text="TextView"
         android:textColor="#FFFFFF"
@@ -39,12 +39,14 @@
 
     <TextView
         android:id="@+id/receiverTime"
-        android:layout_width="63dp"
-        android:layout_height="16dp"
-        android:layout_marginEnd="2dp"
-        android:layout_marginBottom="5dp"
+        android:layout_width="87dp"
+        android:layout_height="41dp"
+        android:layout_margin="10dp"
+        android:padding="10dp"
         android:text="12:00 a.m."
+        android:textAlignment="center"
         android:textColor="#FFFFFF"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline4" />
 

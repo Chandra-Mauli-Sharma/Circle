@@ -88,7 +88,7 @@ class SignInActivity : AppCompatActivity() {
                         userName = user?.displayName.toString(),
                         userId = user?.uid.toString()
                     )
-                    var id= user?.uid
+                    val id= user?.uid
 
                     if (id != null) {
                         database.reference.child("Users").child(id).setValue(userClient)

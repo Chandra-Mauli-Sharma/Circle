@@ -52,7 +52,7 @@ class GroupChatActivity : AppCompatActivity() {
 
         chatRecyclerView = findViewById(R.id.recyclerView2)
 
-        database.reference.child("Chats").addValueEventListener(object : ValueEventListener {
+        database.reference.child("GroupChats").addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 message.clear()
                 for (dataSnapshot in snapshot.children) {

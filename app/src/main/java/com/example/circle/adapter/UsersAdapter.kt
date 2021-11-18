@@ -52,7 +52,8 @@ class UsersAdapter(private val dataSet: ArrayList<Users>) :
                     if(snapshot.hasChildren())
                     {
                         for (dataSnapshot in snapshot.children) {
-                            holder.lastMessage.text=dataSnapshot.child("message").value.toString()
+                            var last=dataSnapshot.child("timeStamp").value.toString()+": "+dataSnapshot.child("message").value.toString()
+                            holder.lastMessage.text=last
                         }
                     }
                 }

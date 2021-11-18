@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.circle.adapter.UsersAdapter
 import com.example.circle.Models.Users
 import com.example.circle.R
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -42,6 +43,10 @@ class Chat : Fragment() {
                 list.clear()
                 for (dataSnapshot in snapshot.children) {
                     val users = dataSnapshot.getValue(Users::class.java)
+                    if(Firebase.auth.uid==dataSnapshot.key)
+                    {
+                        continue
+                    }
                     if (users != null) {
                         users.userId = dataSnapshot.key
                     }
